@@ -1,13 +1,11 @@
 package com.course;
 
 
-import com.course.dao.LoginMapper;
-import org.junit.jupiter.api.Assertions;
+import com.course.dao.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -16,13 +14,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class loginTest {
     @Autowired
-    LoginMapper loginMapper;
+    UserMapper userMapper;
 
 
     @Test
     public void testLoginMapper(){
-        assertEquals(loginMapper.selectByUsername("username").getPassword(), "p1");
-        assertNull(loginMapper.selectByUsername(""));
+        assertEquals(userMapper.selectByUsername("username").getPassword(), "p1");
+        assertNull(userMapper.selectByUsername(""));
 
     }
 }

@@ -2,7 +2,7 @@ package com.course.controller;
 
 import com.course.configuration.Skip;
 import com.course.pojo.LoginUser;
-import com.course.service.LoginService;
+import com.course.service.UserService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +16,14 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/user")
 public class LoginController {
-    LoginService loginService;
+    UserService userService;
 
     /**
      * 采用构造器注入 保证脱离IOC注入器仍可以使用
-     * @param loginService
+     * @param userService
      */
-    public LoginController(LoginService loginService) {
-        this.loginService = loginService;
+    public LoginController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping(value = "/login",consumes = "application/json")
@@ -32,7 +32,7 @@ public class LoginController {
         if (httpSession.getAttribute(LoginUser.SESSION_KEY) != null) {
             return "已登录";
         }
-        httpSession.setAttribute(LoginUser.SESSION_KEY, loginService.Login(loginUser));
+        httpSession.setAttribute(LoginUser.SESSION_KEY, userService.Login(loginUser));
         return "登录成功";
     }
 
