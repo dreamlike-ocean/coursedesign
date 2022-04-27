@@ -7,10 +7,12 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class loginTest {
     @Autowired
@@ -22,5 +24,9 @@ public class loginTest {
         assertEquals(userMapper.selectByUsername("username").getPassword(), "p1");
         assertNull(userMapper.selectByUsername(""));
 
+    }
+    @Test
+    public void test(){
+        System.out.println(LocalDateTime.now().plusMonths(-5));
     }
 }
