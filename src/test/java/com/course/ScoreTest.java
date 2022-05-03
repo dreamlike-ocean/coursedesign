@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -15,8 +18,6 @@ public class ScoreTest {
     ScoreMapper scoreMapper;
     @Test
     public void testInsert(){
-        ScoreRecord record = new ScoreRecord(32, 1,1);
-        int affect = scoreMapper.insertRecord(record);
-        assertEquals(affect,1);
+        System.out.println(LocalDateTime.now().minusYears(-1));
     }
 }

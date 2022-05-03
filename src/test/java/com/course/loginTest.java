@@ -27,6 +27,6 @@ public class loginTest {
     }
     @Test
     public void test(){
-        System.out.println(LocalDateTime.now().plusMonths(-5));
+        System.out.println(LocalDateTime.now().withDayOfMonth(1).withSecond(0).withHour(0).withMinute(0).withSecond(0));
     }
 }

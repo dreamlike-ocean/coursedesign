@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
-public class ConvertibleScoreStrategy implements ScoreStrategy, UnstableScoreStrategy {
+public class ConvertibleScoreStrategy implements UnstableScoreStrategy {
     private final List<Integer> types;
 
     public ConvertibleScoreStrategy() {

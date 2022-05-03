@@ -33,10 +33,11 @@ public class LoginScoreStrategy implements ScoreStrategy {
         if (last != null) {
             //fast path 当天登录
             if (last <= end && last >= start) return null;
-            else {
-                lastGet.put(loginUser.getUserId(), now);
-                return new ScoreRecord(loginUser.getUserId(), 1, type());
-            }
+
+//            else {
+//                lastGet.put(loginUser.getUserId(), now);
+//                return new ScoreRecord(loginUser.getUserId(), 1, type());
+//            }
         }
 
         int count = scoreMapper.count(loginUser.getUserId(), type(), start, end);
