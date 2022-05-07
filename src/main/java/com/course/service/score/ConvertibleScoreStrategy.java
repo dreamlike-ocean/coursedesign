@@ -35,7 +35,7 @@ public class ConvertibleScoreStrategy implements UnstableScoreStrategy {
 
     @Override
     public long validateTimestamp() {
-        return System.currentTimeMillis() - LocalDateTime.now().minusYears(-1).toEpochSecond(ZoneOffset.ofHours(8));
+        return LocalDateTime.now().toEpochSecond(ZoneOffset.ofHours(8)) - LocalDateTime.now().minusYears(-1).toEpochSecond(ZoneOffset.ofHours(8));
     }
 
     @Override

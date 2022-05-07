@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +19,6 @@ public class BfzRecord {
     public BfzRecord(Integer userId, String record) {
         this.userId = userId;
         this.record = record;
-        this.timestamp = System.currentTimeMillis();
+        this.timestamp = LocalDateTime.now().toEpochSecond(ZoneOffset.ofHours(8));
     }
 }

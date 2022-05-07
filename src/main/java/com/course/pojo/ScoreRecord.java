@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +21,7 @@ public class ScoreRecord {
         this.userId = userId;
         this.count = count;
         this.type = type;
-        timestamp = System.currentTimeMillis();
+        timestamp = LocalDateTime.now().toEpochSecond(ZoneOffset.ofHours(8));
     }
 
     public ScoreRecord(Integer userId, Integer count, Long timestamp, Integer type) {

@@ -3,6 +3,9 @@ package com.course.event;
 import com.course.pojo.LoginUser;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 @Getter
 public abstract class BaseScoreEvent {
 
@@ -10,7 +13,7 @@ public abstract class BaseScoreEvent {
     protected final LoginUser loginUser;
 
     public BaseScoreEvent(LoginUser loginUser) {
-        this.timeStamp = System.currentTimeMillis();
+        this.timeStamp = LocalDateTime.now().toEpochSecond(ZoneOffset.ofHours(8));
         this.loginUser = loginUser;
     }
     public abstract int strategyType();

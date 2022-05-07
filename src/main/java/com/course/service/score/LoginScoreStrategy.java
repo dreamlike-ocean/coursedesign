@@ -28,16 +28,11 @@ public class LoginScoreStrategy implements ScoreStrategy {
     public ScoreRecord record(LoginUser loginUser, Map<?, ?> context) {
         long start = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).toEpochSecond(ZoneOffset.ofHours(8));
         long end = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59).toEpochSecond(ZoneOffset.ofHours(8));
-        long now = System.currentTimeMillis();
+        long now = LocalDateTime.now().toEpochSecond(ZoneOffset.ofHours(8));
         Long last = lastGet.get(loginUser.getUserId());
         if (last != null) {
             //fast path 当天登录
             if (last <= end && last >= start) return null;
-
-//            else {
-//                lastGet.put(loginUser.getUserId(), now);
-//                return new ScoreRecord(loginUser.getUserId(), 1, type());
-//            }
         }
 
         int count = scoreMapper.count(loginUser.getUserId(), type(), start, end);

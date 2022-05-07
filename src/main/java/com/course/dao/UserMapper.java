@@ -12,7 +12,7 @@ public interface UserMapper {
     @Select("select * from login_user where  username = #{username}")
     LoginUser selectByUsername(String username);
 
-    @Update("update login_user set information = #{information} Where user_id = #{useId}")
+    @Update("update login_user set information = #{information} Where user_id = #{userId}")
     int updateInformation(int userId,String information);
 
 }

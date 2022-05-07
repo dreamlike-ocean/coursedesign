@@ -19,4 +19,8 @@ public class LoginUser {
 
     private String information;
 
+    public LoginUser(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }
