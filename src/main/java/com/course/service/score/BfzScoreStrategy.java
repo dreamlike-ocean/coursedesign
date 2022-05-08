@@ -27,6 +27,6 @@ public class BfzScoreStrategy implements ScoreStrategy {
         long start = LocalDateTime.now().withDayOfYear(1).withSecond(0).withHour(0).withMinute(0).withSecond(0).toEpochSecond(ZoneOffset.ofHours(8));
         long end = LocalDateTime.now().withMonth(12).withDayOfMonth(31).withHour(23).withMinute(59).withSecond(59).toEpochSecond(ZoneOffset.ofHours(8));
         int count = bfzMapper.countByUserId(loginUser.getUserId(), start, end);
-        return count >= 1 ? null : new ScoreRecord(loginUser.getUserId(), 3, type());
+        return count > 1 ? null : new ScoreRecord(loginUser.getUserId(), 3, type());
     }
 }

@@ -22,4 +22,6 @@ public interface ScoreMapper {
 
     int sum(@Param("userId") int userId,@Param("start") long start,@Param("end") long end,@Param("types") List<Integer> types);
 
+    int insertRecords(@Param("records") List<ScoreRecord> scoreRecords);
+
 }

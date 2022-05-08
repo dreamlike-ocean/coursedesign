@@ -104,6 +104,6 @@ public class ScoreService {
     public int calDuihuanScore(LoginUser loginUser){
         long start = LocalDateTime.now().minusYears(1).toEpochSecond(ZoneOffset.ofHours(8));
         long end = LocalDateTime.now().toEpochSecond(ZoneOffset.ofHours(8));
-        return scoreMapper.sum(loginUser.getUserId(), start, end, chengzhang);
+        return scoreMapper.sum(loginUser.getUserId(), start, end,duihuan);
     }
 }
