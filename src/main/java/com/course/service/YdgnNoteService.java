@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.course.event.EventBus;
 import org.springframework.stereotype.Service;
 
-import static com.course.configuration.WebConfig.USER_CONTEXT;
+import static com.course.configuration.InterceptorConfig.USER_CONTEXT;
 
 /**
  * @author lixuy

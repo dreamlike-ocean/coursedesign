@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.course.configuration.WebConfig.USER_CONTEXT;
+import static com.course.configuration.InterceptorConfig.USER_CONTEXT;
 
 public class TestUtil {
 

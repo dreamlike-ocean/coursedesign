@@ -4,8 +4,13 @@ import com.course.event.AccessScoreEvent;
 import com.course.event.EventBus;
 import com.course.pojo.LoginUser;
 import com.course.utils.AuthenticationException;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -18,10 +23,25 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+@Aspect
+
+public class InterceptorConfig implements WebMvcConfigurer {
     public static final ThreadLocal<LoginUser> USER_CONTEXT = new ThreadLocal<>();
     @Autowired
+    private EventBus EventBus;
+    @Autowired
     UserInterceptor userInterceptor;
+
+    @Around(value = "execution(* com.course.service.*.*(..)) && !@annotation(Skip) && !@annotation(org.springframework.context.event.EventListener)")
+    public Object InterceptMethod(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        if (USER_CONTEXT.get() == null){
+            throw new AuthenticationException();
+        }
+        EventBus.publishEvent(new AccessScoreEvent(USER_CONTEXT.get()));
+        Object proceed = proceedingJoinPoint.proceed();
+        return proceed;
+    }
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -34,7 +54,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Component
     static class UserInterceptor implements HandlerInterceptor {
         @Autowired
-        private com.course.event.EventBus EventBus;
+        private EventBus EventBus;
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
             if (!(handler instanceof HandlerMethod)) return true;

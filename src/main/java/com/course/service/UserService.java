@@ -1,5 +1,6 @@
 package com.course.service;
 
+import com.course.configuration.Skip;
 import com.course.dao.UserMapper;
 import com.course.event.AccessScoreEvent;
 import com.course.event.FillInformationScoreEvent;
@@ -9,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.course.event.EventBus;
 import org.springframework.stereotype.Service;
 
-import static com.course.configuration.WebConfig.USER_CONTEXT;
+import static com.course.configuration.InterceptorConfig.USER_CONTEXT;
 
 /**
  * @author lixuy
@@ -29,6 +30,7 @@ public class UserService {
      * @return login from db
      * @exception AuthenticationException 如果验证失败
      */
+    @Skip
     public LoginUser Login(LoginUser loginUser){
         var user = userMapper.selectByUsername(loginUser.getUsername());
         if (user == null || !user.getPassword().equals(loginUser.getPassword())) throw new AuthenticationException();
