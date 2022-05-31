@@ -2,7 +2,7 @@ package com.course.service;
 
 import com.course.event.YdgnScoreEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import com.course.event.EventBus;
 import org.springframework.stereotype.Service;
 
 import static com.course.configuration.WebConfig.USER_CONTEXT;
@@ -15,11 +15,11 @@ import static com.course.configuration.WebConfig.USER_CONTEXT;
 @Service
 public class YdgnNoteService {
     @Autowired
-    ApplicationContext applicationContext;
+    EventBus EventBus;
 
     public void ydgnNote(){
         System.out.println("+++++ydgnNote积分计算方法执行+++++");
-        applicationContext.publishEvent(new YdgnScoreEvent(USER_CONTEXT.get()));
+        EventBus.publishEvent(new YdgnScoreEvent(USER_CONTEXT.get()));
     }
 
 }

@@ -1,8 +1,8 @@
 package com.course.service;
 
 import com.course.event.ConvertibleScoreEvent;
+import com.course.event.EventBus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import static com.course.configuration.WebConfig.USER_CONTEXT;
@@ -15,11 +15,11 @@ import static com.course.configuration.WebConfig.USER_CONTEXT;
 @Service
 public class ExtendedActivityService {
     @Autowired
-    private ApplicationContext applicationContext;
+    private EventBus EventBus;
 
     public void extendedActivity(){
         System.out.println("+++++extendedActivity积分计算方法执行+++++");
-        applicationContext.publishEvent(new ConvertibleScoreEvent(USER_CONTEXT.get(), ConvertibleScoreEvent.ConvertibleScore.ExtendedRecruitment));
+        EventBus.publishEvent(new ConvertibleScoreEvent(USER_CONTEXT.get(), ConvertibleScoreEvent.ConvertibleScore.ExtendedRecruitment));
     }
 
 }

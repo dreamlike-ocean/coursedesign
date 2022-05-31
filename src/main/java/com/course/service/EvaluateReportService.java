@@ -2,10 +2,11 @@ package com.course.service;
 
 import com.course.dao.BloodSugarRecordMapper;
 import com.course.event.EvaluateReportScoreEvent;
+import com.course.event.EventBus;
 import com.course.pojo.LoginUser;
 import com.course.utils.NostackException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+
 import org.springframework.stereotype.Service;
 
 import static com.course.configuration.WebConfig.USER_CONTEXT;
@@ -18,14 +19,14 @@ import static com.course.configuration.WebConfig.USER_CONTEXT;
 @Service
 public class EvaluateReportService {
     @Autowired
-    private ApplicationContext applicationContext;
+    private EventBus EventBus;
     @Autowired //设计有误 不应该这样直接取
     BloodSugarRecordMapper bloodSugarRecordMapper;
 
     public String evaluateReport(){
         LoginUser user = USER_CONTEXT.get();
         if (user.getInformation() !=null &&bloodSugarRecordMapper.countByUserId(user.getUserId()) >=10) {
-            applicationContext.publishEvent(new EvaluateReportScoreEvent(user));
+            EventBus.publishEvent(new EvaluateReportScoreEvent(user));
             return "你的报告";
         }
         throw new NostackException("条件不足，无法生成报告");

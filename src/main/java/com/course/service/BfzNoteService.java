@@ -2,10 +2,10 @@ package com.course.service;
 
 import com.course.dao.BfzMapper;
 import com.course.event.BfzScoreEvent;
+import com.course.event.EventBus;
 import com.course.pojo.BfzRecord;
 import com.course.pojo.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import static com.course.configuration.WebConfig.USER_CONTEXT;
@@ -20,12 +20,12 @@ public class BfzNoteService {
     @Autowired
     private BfzMapper bfzMapper;
     @Autowired
-    ApplicationContext applicationContext;
+    EventBus eventBus;
 
     public void bfzNote(String bfz){
         LoginUser user = USER_CONTEXT.get();
         bfzMapper.insertIntoRecord(new BfzRecord(user.getUserId(), bfz));
-        applicationContext.publishEvent(new BfzScoreEvent(user));
+        eventBus.publishEvent(new BfzScoreEvent(user));
     }
 
 }

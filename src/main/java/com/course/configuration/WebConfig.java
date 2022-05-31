@@ -1,10 +1,10 @@
 package com.course.configuration;
 
 import com.course.event.AccessScoreEvent;
+import com.course.event.EventBus;
 import com.course.pojo.LoginUser;
 import com.course.utils.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -34,7 +34,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Component
     static class UserInterceptor implements HandlerInterceptor {
         @Autowired
-        private ApplicationContext applicationContext;
+        private com.course.event.EventBus EventBus;
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
             if (!(handler instanceof HandlerMethod)) return true;
@@ -46,7 +46,7 @@ public class WebConfig implements WebMvcConfigurer {
             if (user == null){
                 throw new AuthenticationException();
             }
-            applicationContext.publishEvent(new AccessScoreEvent(user));
+            EventBus.publishEvent(new AccessScoreEvent(user));
             USER_CONTEXT.set(user);
             return true;
         }

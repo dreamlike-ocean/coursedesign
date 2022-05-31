@@ -6,7 +6,7 @@ import com.course.event.FillInformationScoreEvent;
 import com.course.pojo.LoginUser;
 import com.course.utils.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import com.course.event.EventBus;
 import org.springframework.stereotype.Service;
 
 import static com.course.configuration.WebConfig.USER_CONTEXT;
@@ -21,7 +21,7 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
-    private ApplicationContext applicationContext;
+    private EventBus EventBus;
 
     /**
      * @author dreamlike
@@ -32,7 +32,7 @@ public class UserService {
     public LoginUser Login(LoginUser loginUser){
         var user = userMapper.selectByUsername(loginUser.getUsername());
         if (user == null || !user.getPassword().equals(loginUser.getPassword())) throw new AuthenticationException();
-        applicationContext.publishEvent(new AccessScoreEvent(user));
+        EventBus.publishEvent(new AccessScoreEvent(user));
         return user;
     }
 
@@ -42,7 +42,7 @@ public class UserService {
         int i = userMapper.updateInformation(user.getUserId(), information);
         boolean isFirst = user.getInformation() == null;
         user.setInformation(information);
-        applicationContext.publishEvent(new FillInformationScoreEvent(user, isFirst));
+        EventBus.publishEvent(new FillInformationScoreEvent(user, isFirst));
         return i;
     }
 
