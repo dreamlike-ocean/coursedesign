@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @EnableAspectJAutoProxy(exposeProxy = true)
 public class Main {
     @Autowired
-    BfzNoteService noteService;
+    DataSource dataSource;
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
